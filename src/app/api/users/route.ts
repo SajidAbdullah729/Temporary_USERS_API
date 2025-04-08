@@ -52,3 +52,32 @@ function validateUserData(data: { name: string; email: string }): string | null 
 
   return null;
 }
+function extravalidation(data: { name: string; email: string }): boolean { 
+  if (data.name[0] !== data.name[0].toUpperCase()) {
+    return false;
+  }
+  //check number
+  if (/\d/.test(data.name[0])) {
+    return false;
+  }
+
+  if (data.name.length < 3) {
+    return false;
+  }
+
+  const spaceCount = (data.name.match(/\s/g) || []).length;
+  if (spaceCount > 5) {
+    return false;
+  }
+
+  if (!data.email.includes('@')) {
+    return false;
+  }
+
+  const domainPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (!domainPattern.test(data.email)) {
+    return false;
+  }
+  return true;
+  //return true;
+}
